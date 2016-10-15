@@ -564,12 +564,15 @@ def clffactory(clfname, **kwargs):
 
     if ('svm' in clfname) or ('svc' in clfname):
         k = kwargs['kernel'] if 'kernel' in kwargs else 'rbf'
-        g = kwargs['gamma'] if 'gamma' in kwargs else 50
-        clf = SVC(kernel=k, gamma=g)
-        print("[clf factory]clf=\'SVC\', kernel=\'" + clf.kernel + "\', gamma=\'" + repr(clf.gamma) + "\'")
+        g = kwargs['gamma'] if 'gamma' in kwargs else 0.125## 50
+        d = kwargs['decision_function_shape'] if 'decision_function_shape' in kwargs else 'ovr'
+        clf = SVC(kernel=k, gamma=g, decision_function_shape=d)
+        print("[clf factory]clf=\'SVC\', kernel=\'" + clf.kernel + "\'', gamma=\'",  repr(clf.gamma) + "\'", ', decision=\'' + d + '\'')
     elif 'knn' in clfname:
+        n = kwargs['n_neighbors'] if 'n_neighbors' in kwargs else 1
         w = kwargs['weights'] if 'weights' in kwargs else 'distance'
-        clf = KNeighborsClassifier(weights=w)
+        a = kwargs['algorithm'] if 'algorithm' in kwargs else 'auto'
+        clf = KNeighborsClassifier(n_neighbors=n, weights=w, algorithm=a)
         print("[clf factory]clf=\'kNN\', weights=\'" + clf.weights + "\'")
     elif 'cpon' in clfname:
         c = kwargs['cluster'] if 'cluster' in kwargs else 'lk'
@@ -579,12 +582,12 @@ def clffactory(clfname, **kwargs):
         clf = CPON()
         print(clf)
     elif 'rf' in clfname:
-        n = kwargs['n_estimators'] if 'n_estimators' in kwargs else 10
+        n = kwargs['n_estimators'] if 'n_estimators' in kwargs else 1
         r = kwargs['random_state'] if 'random_state' in kwargs else 33
         clf = RandomForestClassifier(n_estimators=n, random_state=r)
         pass
     elif 'nb' in clfname:
-         #clf = GaussianNB()
+        clf = GaussianNB()
         pass
     mi = Sim(clf, clfname)
 

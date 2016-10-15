@@ -12,17 +12,30 @@ if __name__ == '__main__':
     # agent = simagent.SimAgent(fold=10)  # default : 2
     cpon = simagent.clffactory('cpon')
     agent.addsim(cpon)
-    agent.addsim(simagent.clffactory('svm'))
-    agent.addsim(simagent.clffactory('knn'))
+    # agent.addsim(simagent.clffactory('svm', gamma = 0.03125, decision_function_shape='ovr'))
+    # agent.addsim(simagent.clffactory('svm', gamma = 0.0625))
+    # agent.addsim(simagent.clffactory('svm', gamma = 0.125))
+    # agent.addsim(simagent.clffactory('svm', gamma = 0.25))
+    # agent.addsim(simagent.clffactory('svm', gamma = 0.5))
+    # agent.addsim(simagent.clffactory('svm', gamma = 1))
+    # agent.addsim(simagent.clffactory('svm', gamma = 2))
+    # agent.addsim(simagent.clffactory('svm', gamma = 4))
+    # agent.addsim(simagent.clffactory('svm', gamma = 8))
+    # agent.addsim(simagent.clffactory('svm', gamma = 16))
+    # agent.addsim(simagent.clffactory('svm', gamma = 32))
+    # agent.addsim(simagent.clffactory('svm', gamma = 64))
+    # agent.addsim(simagent.clffactory('knn', weights='uniform', algorithm='brute'))
+    # agent.addsim(simagent.clffactory('knn'))
     agent.addsim(simagent.clffactory('rf'))
-    #agent.addsim(simagent.clffactory('nb'))
+    agent.addsim(simagent.clffactory('nb'))
 
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/100_B0001[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/prev50[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/prev50[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,dTOA]')
-    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')  # 쓰면 좋을 것 같은 dataset
+    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,TOA]')
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA,dTOA]')
 
     # 여기서 learning data와 examining data를 관리해줘야 합니다.
