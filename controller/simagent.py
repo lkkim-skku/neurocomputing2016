@@ -262,6 +262,35 @@ class SimAgent:
 
         return self.simtaglist
 
+    def simulate_known_sequence(self):
+        """
+        known인데 sequnce로 test합니다.
+        :return:
+        """
+        f = 1
+        escontent, estarget = [], []
+        for i, (ld, lt, ed, et) in enumerate(self._lm.source()):
+            sequential_examine_dict = controller.classionary(ed, et)
+            edseq, etseq = [], []
+            for key in sequential_examine_dict:
+                etseq.append(key)
+                edseq.append([sum(x)/len(x) for x in list(zip(*sequential_examine_dict[key]))])
+                # edseq.append([np.average(x) for x in list(zip(*sequential_examine_dict[key]))])
+            escontent.append(edseq), estarget.append(etseq)
+        self._lm.uploadexam(escontent, estarget)
+
+        for ld, lt, ed, et in self._lm.source():
+            for simtag in self.simtaglist:
+                simtag.simulate(ld, lt, ed, et)
+                # simtag.simulate_160518(ld, lt, ed, et)
+            print("fold%02d complete" % f)
+            f += 1
+
+        for simtag in self.simtaglist:
+            ave_stats(simtag)
+
+        return self.simtaglist
+
 
 class Sim:
     """
@@ -564,15 +593,20 @@ def clffactory(clfname, **kwargs):
 
     if ('svm' in clfname) or ('svc' in clfname):
         k = kwargs['kernel'] if 'kernel' in kwargs else 'rbf'
-        g = kwargs['gamma'] if 'gamma' in kwargs else 0.125## 50
-        d = kwargs['decision_function_shape'] if 'decision_function_shape' in kwargs else 'ovr'
-        clf = SVC(kernel=k, gamma=g, decision_function_shape=d)
-        print("[clf factory]clf=\'SVC\', kernel=\'" + clf.kernel + "\'', gamma=\'",  repr(clf.gamma) + "\'", ', decision=\'' + d + '\'')
+        # g = kwargs['gamma'] if 'gamma' in kwargs else 0.125## 50  # 161020
+        g = kwargs['gamma'] if 'gamma' in kwargs else 50
+        # d = kwargs['decision_function_shape'] if 'decision_function_shape' in kwargs else 'ovr'  # 161020
+        # d = kwargs['decision_function_shape'] if 'decision_function_shape' in kwargs else None  # 161020
+        # clf = SVC(kernel=k, gamma=g, decision_function_shape=d)  # 161020
+        clf = SVC(kernel=k, gamma=g)
+        # print("[clf factory]clf=\'SVC\', kernel=\'" + clf.kernel + "\'', gamma=\'",  repr(clf.gamma) + "\'", ', decision=\'' + d + '\'')  # 161020
+        print("[clf factory]clf=\'SVC\', kernel=\'" + clf.kernel + "\'', gamma=\'",  repr(clf.gamma) + "\'")
     elif 'knn' in clfname:
         n = kwargs['n_neighbors'] if 'n_neighbors' in kwargs else 1
         w = kwargs['weights'] if 'weights' in kwargs else 'distance'
-        a = kwargs['algorithm'] if 'algorithm' in kwargs else 'auto'
-        clf = KNeighborsClassifier(n_neighbors=n, weights=w, algorithm=a)
+        # a = kwargs['algorithm'] if 'algorithm' in kwargs else 'auto'  # 161020
+        # clf = KNeighborsClassifier(n_neighbors=n, weights=w, algorithm=a)  # 161020
+        clf = KNeighborsClassifier(n_neighbors=n, weights=w)
         print("[clf factory]clf=\'kNN\', weights=\'" + clf.weights + "\'")
     elif 'cpon' in clfname:
         c = kwargs['cluster'] if 'cluster' in kwargs else 'lk'
