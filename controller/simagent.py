@@ -617,8 +617,10 @@ def clffactory(clfname, **kwargs):
         print(clf)
     elif 'rf' in clfname:
         n = kwargs['n_estimators'] if 'n_estimators' in kwargs else 1
-        r = kwargs['random_state'] if 'random_state' in kwargs else 33
-        clf = RandomForestClassifier(n_estimators=n, random_state=r)
+        nof = kwargs['max_features'] # 무조건 입력받아줘야하는 부분
+        md = kwargs['max_depth'] if 'max_depth' in kwargs else None
+        r = kwargs['random_state'] if 'random_state' in kwargs else None
+        clf = RandomForestClassifier(n_estimators=n, random_state=r, max_features=nof, max_depth=md)
         pass
     elif 'nb' in clfname:
         clf = GaussianNB()

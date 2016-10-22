@@ -8,14 +8,17 @@ from model import metrics_CPON as cmetrics
 
 
 if __name__ == '__main__':
-    agent = simagent.SimAgent()  # default : 2
-    # agent = simagent.SimAgent(fold=10)  # default : 2
+    # agent = simagent.SimAgent()  # default : 2
+    agent = simagent.SimAgent(fold=10)  # default : 2
     cpon = simagent.clffactory('cpon')
     agent.addsim(cpon)
     # agent.addsim(simagent.clffactory('svm'))
     # agent.addsim(simagent.clffactory('knn'))
     # agent.addsim(simagent.clffactory('rf'))
-    # agent.addsim(simagent.clffactory('nb'))
+    agent.addsim(simagent.clffactory('svm', gamma=4))
+    agent.addsim(simagent.clffactory('knn', weights='uniform', algorithm='brute'))
+    agent.addsim(simagent.clffactory('rf'))
+    agent.addsim(simagent.clffactory('nb'))
 
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/100_B0001[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/prev50[FREQ,PW,dTOA]')

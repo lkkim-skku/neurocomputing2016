@@ -5,9 +5,9 @@ import os
 import time
 # from simagent import Sim
 
-directory = "D:\\Document\\niplab\\LIG"
-version = "\\july"
-trails = "\\output\\"
+directory = "D:" #"D:\\Document\\niplab\\LIG"
+version = "\\"
+trails = ""
 # dataname = "july_original_TOA"  # 진짜 오리지널 데이터
 # dataname = "july_originbeam_TOA"  # 모든 1번 beam의 데이터
 # dataname = "july_original_TOA_0102"  # 1번과 2번만
