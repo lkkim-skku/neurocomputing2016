@@ -269,7 +269,7 @@ def folding_160411_half(content, target, args=()):
     """
     지정한 class만 unknown으로 만듭니다.
     그리고 5개의 fold는 test data의 갯수만 달라집니다.
-    50, 40, 30, 20, 10개로 나눠집니다.
+    10, 20, 30, 40, 50개로 나눠집니다.
 
     - 그런데 빡세게(?) 코딩했는데 애초에 python의 for문은 yield되서 순서가 무작워...ㄷㄷ
       따라서 크게 의미는 없음...ㅋㅋ
@@ -384,17 +384,23 @@ def folding_160617_half(content, target, args=()):
     return lcon, ltar, econ, etar
 
 
-def enforder_unknown_prerec_160510(content, target):
+def folding_161101_half(content, target, args=()):
     """
-    unknown의 precision과 recall을 구하기 위한 데이터를 생성하기 위한 함수입니다.
-    unknwon classes의 비율을 0, 10, 20, 30, 40, 50% 로 줍니다.
-    unknown classes는 random하게 선택됩니다.
-    한 클래스의 데이터 중 절반은 learn, 나머지 절반은 test입니다.
-    :param content:
-    :param target:
+    지정한 class만 unknown으로 만듭니다.
+    그리고 5개의 fold는 test data의 갯수만 달라집니다.
+    50, 40, 30, 20, 10개로 나눠집니다.
+
+    :param list content: array-like. it contains content for learning
+    :param list target: array-like. it contains target for learning
+    :param tuple args: array-like. 특정 클래스 이름
     :return:
+        content for learing,
+        target for learning,
+        content for examinating,
+        target for examinating
     """
-    pass
+
+    return lcon, ltar, econ, etar
 
 
 def plot_lines(filename, title, *args):

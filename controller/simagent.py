@@ -274,8 +274,8 @@ class SimAgent:
             edseq, etseq = [], []
             for key in sequential_examine_dict:
                 etseq.append(key)
-                edseq.append([sum(x)/len(x) for x in list(zip(*sequential_examine_dict[key]))])
-                # edseq.append([np.average(x) for x in list(zip(*sequential_examine_dict[key]))])
+                # edseq.append([sum(x)/len(x) for x in list(zip(*sequential_examine_dict[key]))])
+                edseq.append([np.average(x) for x in list(zip(*sequential_examine_dict[key]))])
             escontent.append(edseq), estarget.append(etseq)
         self._lm.uploadexam(escontent, estarget)
 

@@ -9,8 +9,8 @@ import numpy
 
 
 if __name__ == '__main__':
-    # agent = simagent.SimAgent()  # default : 2
-    agent = simagent.SimAgent(fold=10)  # default : 2
+    agent = simagent.SimAgent()  # default : 2
+    # agent = simagent.SimAgent(fold=10)  # default : 2
     cpon = simagent.clffactory('cpon')
     agent.addsim(cpon)
     # agent.addsim(simagent.clffactory('svm', gamma = 0.03125, decision_function_shape='ovr'))
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')  # 쓰면 좋을 것 같은 dataset
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,dTOA]')
-    # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,TOA]')
+    data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50_6feature[FREQ,PW,dTOA]')
-    data, target = projio.load('D:/Workshop/NIPLAB/raw/50_6feature[FREQ,PW,TOA]')
+    # data, target = projio.load('D:/Workshop/NIPLAB/raw/50_6feature[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/100[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/100[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
