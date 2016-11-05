@@ -26,8 +26,8 @@ if __name__ == '__main__':
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,TOA]')  # 쓰면 좋을 것 같은 dataset
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
-    data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,dTOA]')
+    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
+    # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50_6feature[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50_6feature[FREQ,PW,TOA]')
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     # lc, lt, ec, et = controller.folding_160617_half(data, target, ('35', '17', '13', '37', '11', '30', '25', '07', '20', '38'))  # 20%
 
     ###CASE 01###
-    # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'46', '27', '20', '11', '17'	))  # 10%
+    lc, lt, ec, et = controller.folding_160411_half(data, target, (	'46', '27', '20', '11', '17'	))  # 10%
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'46', '27', '03', '20', '24', '26', '11', '40', '17', '06'	))  # 20%
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'46', '27', '03', '13', '20', '24', '42', '07', '26', '11', '40', '04', '17', '45', '06'	))  # 30%
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'46', '27', '03', '13', '05', '10', '20', '24', '41', '07', '26', '11', '40', '14', '04', '01', '17', '45', '32', '06'	))  # 40%
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'42',	'40',	'37',	'36',	'35',	'34',	'26',	'22',	'11',	'01'																))  # 20%
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'49',	'42',	'41',	'40',	'37',	'36',	'35',	'34',	'31',	'26',	'22',	'17',	'12',	'11',	'01'											))  # 30%
     # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'49',	'42',	'41',	'40',	'37',	'36',	'35',	'34',	'33',	'31',	'30',	'26',	'22',	'19',	'18',	'17',	'12',	'11',	'04',	'01'						))  # 40%
-    lc, lt, ec, et = controller.folding_160411_half(data, target, (	'50',	'49',	'42',	'41',	'40',	'38',	'37',	'36',	'35',	'34',	'33',	'31',	'30',	'27',	'26',	'22',	'21',	'20',	'19',	'18',	'17',	'12',	'11',	'04',	'01'	))  # 50%
+    # lc, lt, ec, et = controller.folding_160411_half(data, target, (	'50',	'49',	'42',	'41',	'40',	'38',	'37',	'36',	'35',	'34',	'33',	'31',	'30',	'27',	'26',	'22',	'21',	'20',	'19',	'18',	'17',	'12',	'11',	'04',	'01'	))  # 50%
 
     lm.uploadlearn(lc, lt)
     lm.uploadexam(ec, et)

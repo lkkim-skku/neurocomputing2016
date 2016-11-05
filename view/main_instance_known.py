@@ -8,57 +8,49 @@ from model import metrics_CPON as cmetrics
 
 
 if __name__ == '__main__':
-    agent = simagent.SimAgent()  # default : 2
-    # agent = simagent.SimAgent(fold=10)  # default : 2
+    # agent = simagent.SimAgent()  # default : 2
+    agent = simagent.SimAgent(fold=10)  # default : 2
     cpon = simagent.clffactory('cpon')
-    # agent.addsim(cpon)
+    agent.addsim(cpon)
     # agent.addsim(simagent.clffactory('svm', gamma = 0.03125, decision_function_shape='ovr'))
     # agent.addsim(simagent.clffactory('svm', gamma = 0.0625))
     # agent.addsim(simagent.clffactory('svm', gamma = 0.125))
     # agent.addsim(simagent.clffactory('svm', gamma = 0.25))
     # agent.addsim(simagent.clffactory('svm', gamma = 0.5))
     # agent.addsim(simagent.clffactory('svm', gamma = 1))
-    # agent.addsim(simagent.clffactory('svm', gamma = 2))
-    # agent.addsim(simagent.clffactory('svm'))
-    # agent.addsim(simagent.clffactory('knn'))
+    # agent.addsim(simagent.clffactory('svm', gamma = 4))
+    agent.addsim(simagent.clffactory('svm'))
+    agent.addsim(simagent.clffactory('knn'))
     # agent.addsim(simagent.clffactory('rf'))
     # agent.addsim(simagent.clffactory('nb'))
     # agent.addsim(simagent.clffactory('knn'))
+    # agent.addsim(simagent.clffactory('lsvm'))
 
     # agent.addsim(simagent.clffactory('svm', gamma = 4))
     # agent.addsim(simagent.clffactory('knn', weights='uniform', algorithm='brute'))
 
-    for i in range(1, 31):
-        agent.addsim(simagent.clffactory('rf', n_estimators=i, max_features=6, max_depth=6)) # 요거중요
+    # for i in range(1, 31):
+    #     agent.addsim(simagent.clffactory('rf', n_estimators=i, max_features=6, max_depth=6)) # 요거중요
     # for i in range(1, 31):
     #     agent.addsim(simagent.clffactory('rf', n_estimators=i, max_features=12, max_depth=6))  # 요거중요
-        '''
-        Random Forest의 성능에 지대한 영향을 끼치는 매개변수는
-        n_estimators ( ~ 약 30개 )
-        max_features = (6 or 12)
-        max_depth = ( ~ 사실상 inf)
-        입니다.
-        max_depth 는 특히 계산량과 직접적으로 결정되는 요소 이기 때문에,
-        default 값을 넣는것은 의미가 없고, 임의로 지정해 줘야할 것 같습니다.
-        max_depth를 6으로 설정한 경우 30개의 estimator 을 써야만 CPON 의 성능에 가까워지는 것을 확인 하였습니다. (2 fold validation 기준)
-        max_depth 가 적어도 12 이상인 경우에 1개의 estimator 성능이 90%가 나오게 됩니다.
-        6 feature 기준으로 random forest 의 한계성능은 약 96% 정도..
-       '''
+
     # agent.addsim(simagent.clffactory('rf'), max_features=12)
     # agent.addsim(simagent.clffactory('nb')) # 폐기
 
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/100_B0001[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/prev50[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/prev50[FREQ,PW,TOA]')
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,dTOA]')
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')  # 쓰면 좋을 것 같은 dataset
-    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,TOA]')
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,dTOA]')
     # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50_6feature[FREQ,PW,TOA]')
-    # data, target = projio.load('D:\/orkshop/NIPLAB/raw/50[FREQ,PW,TOA]')
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,dTOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
+    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.1)
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50f12_161105[FREQ,PW,TOA]') # 116105, 모두 45개씩 끊음
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50f12_161105-45[FREQ,PW,dTOA]') # 116105, 모두 45개씩 끊음
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50f12_161105[FREQ,PW,dTOA]') # 116105, 모두 45개씩 끊음, dtoa중 sparce 는 평균값으로 대체
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50f6_161105[FREQ,PW,TOA]') # 116105, 모두 45개씩 끊음
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50f6_161105-45[FREQ,PW,dTOA]') # 116105, 모두 45개씩 끊음
+    # data, target = projio.load('D:/Workshop/NIP lab//niplab/14.11-16.04_RadarSignal/Data/input/raw/50f6_161105[FREQ,PW,dTOA]') # 116105, 모두 45개씩 끊음, dtoa중 sparce 는 평균값으로 대체
+    # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,TOA]')
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,dTOA]')
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]')  # 실제 논문에서 사용한 dataset
-    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA,dTOA]')
 
     # 여기서 learning data와 examining data를 관리해줘야 합니다.
     lm = agent.folder

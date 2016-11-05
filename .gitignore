@@ -1,2 +1,7 @@
 /__pycache__
 /.idea
+/controller/__pycache__/*.pyc
+/controller/projio/__pycache__/*.pyc
+/model/__pycache__/*.pyc
+/model/dataprocess/__pycache__/*.pyc
+/view/__pycache__/*.pyc
