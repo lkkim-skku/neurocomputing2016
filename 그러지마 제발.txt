@@ -1,5 +1,7 @@
-moments T/dT	pdw안의 sample 갯수	구멍매우기	acc	pre	rec	f1
+moments T/dT	pdw안의 sample 갯수	sparce처리	acc	pre	rec	f1
 4	dTOA	45			함		8312	8573	8312	8148
 4	dTOA	45			안함		8494	8672	8494	8379
-4	TOA	45			안함		
-2	
+4	TOA	45			안함		8708	8874	8708	8612
+2	dTOA	45			함		8472	8448	8482	8277
+2	dTOA	45			안함		8572	8766	8572	8456
+2	TOA	45			안함		8756	8832	8756	8663
