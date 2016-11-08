@@ -5,3 +5,4 @@
 /model/__pycache__/*.pyc
 /model/dataprocess/__pycache__/*.pyc
 /view/__pycache__/*.pyc
+.idea

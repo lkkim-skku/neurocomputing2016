@@ -53,8 +53,8 @@ if __name__ == '__main__':
     # data, target = projio.load('D:/Workshop/NIPLAB/raw/50[FREQ,PW,dTOA]')
 
     # 여기서 learning data와 examining data를 관리해줘야 합니다.
-    lm = agent.folder
     agent.folder.fit(data, target)
+    lm = agent.folder
     # lc, lt, ec, et = controller.folding_160311_half(data, target)  # 0~50% unknown
     # lc, lt, ec, et = controller.folding_160624_half(data, target)  # 0~50% unknown
     #lc, lt, ec, et = controller.folding_160411_half(data, target)  # 지정한 unknown, test 개수 50~10
