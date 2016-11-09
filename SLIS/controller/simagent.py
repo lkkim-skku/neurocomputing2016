@@ -238,7 +238,6 @@ class SimAgent:
         for ld, lt, ed, et in self._lm.source():
             for simtag in self.simtaglist:
                 simtag.simulate(ld, lt, ed, et)
-                # simtag.simulate_160518(ld, lt, ed, et)
             print("fold%02d complete" % f)
             f += 1
 

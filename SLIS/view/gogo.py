@@ -56,7 +56,7 @@ class SimulationCaseController:
             if not isinstance(sa, simagent.SimAgent):
                 return False
 
-            if 'simulate' in simulatecase:
+            if 'known' in simulatecase:
                 agentdict['result'] = sa.simulate()
 
             elif 'unknown' in simulatecase:
@@ -71,8 +71,8 @@ class SimulationCaseController:
 
 
 if __name__ == "__main__":
-    data, target = projio.load('D:/orkshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,dTOA]') # 실제 논문에서 사용한 dataset (tb.1)
-    # data, target = projio.load('D:/orkshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
+    data, target = projio.load('D:/workshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,dTOA]') # 실제 논문에서 사용한 dataset (tb.1)
+    # data, target = projio.load('D:/workshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
 
     sac = SimulationCaseController(fold=10)
 
@@ -91,10 +91,11 @@ if __name__ == "__main__":
 
     for case in case10per:
         sa = simagent.SimAgent(sac.fold)
+        sa.addsim(simagent.clffactory('cpon'))
         lc, lt, ec, et = controller.folding_160411_half(data, target, case)
         sac.fit(sa, lc=lc, lt=lt, ec=ec, et=et)
 
-    sacgen = sac.simulate('unknown')
+    sacgen = sac.simulate('known')
     for res in sacgen:
         a = res
     # agent = simagent.SimAgent(fold=10)  # default : 2
