@@ -77,24 +77,9 @@ if __name__ == "__main__":
 
     sac = SimulationCaseController(fold=10)
 
-    case10per = (
-        ('46',	'27',	'20',	'11',	'17'),
-        ('17',	'06',	'13',	'38',	'09'),
-        ('10',	'46',	'02',	'37',	'01'),
-        ('09',	'30',	'17',	'49',	'07'),
-        ('46',	'21',	'20',	'14',	'02'),
-        ('44',	'25',	'22',	'18',	'16'),
-        ('31',	'27',	'24',	'17',	'10'),
-        ('46',	'33',	'23',	'14',	'03'),
-        ('39',	'26',	'11',	'08',	'07'),
-        ('37',	'34',	'22',	'11',	'01')
-    )
-
-    for case in case10per:
-        sa = simagent.SimAgent(sac.fold)
-        sa.addsim(simagent.clffactory('cpon'))
-        lc, lt, ec, et = controller.folding_160411_half(data, target, case)
-        sac.fit(sa, lc=lc, lt=lt, ec=ec, et=et)
+    sa = simagent.SimAgent(sac.fold)
+    sa.addsim(simagent.clffactory('cpon'))
+    sac.fit(sa, data=data, target=target)
 
     sacgen = sac.simulate('known')
     stats = []
