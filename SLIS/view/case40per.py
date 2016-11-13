@@ -57,7 +57,7 @@ class SimulationCaseController:
             if not isinstance(sa, simagent.SimAgent):
                 return False
 
-            if 'classify' in simulatecase:
+            if 'known' in simulatecase:
                 agentdict['result'] = sa.simulate()
 
             elif 'identify' in simulatecase:
@@ -77,25 +77,47 @@ if __name__ == "__main__":
 
     sac = SimulationCaseController(fold=10)
 
-    sa = simagent.SimAgent(sac.fold)
-    sa.addsim(simagent.clffactory('cpon'))
-    sa.addsim(simagent.clffactory('svm'))
-    sa.addsim(simagent.clffactory('knn'))
-    sac.fit(sa, data=data, target=target)
+    case40per = (	    ###20 개###
+        (	'46',	'27',	'03',	'13',	'05',	'10',	'20',	'24',	'41',	'07',	'26',	'11',	'40',	'14',	'04',	'01',	'17',	'45',	'32',	'06'	),
+        (	'17',	'06',	'40',	'46',	'16',	'49',	'04',	'18',	'13',	'38',	'07',	'19',	'23',	'11',	'30',	'12',	'09',	'31',	'47',	'08'	),
+        (	'10',	'12',	'14',	'49',	'02',	'07',	'11',	'08',	'37',	'46',	'06',	'29',	'04',	'01',	'18',	'27',	'48',	'34',	'44',	'32'	),
+        (	'16',	'09',	'30',	'22',	'21',	'25',	'17',	'02',	'06',	'27',	'43',	'41',	'28',	'31',	'14',	'47',	'10',	'32',	'07',	'45'	),
+        (	'49',	'42',	'41',	'40',	'37',	'36',	'35',	'34',	'33',	'31',	'30',	'26',	'22',	'19',	'18',	'17',	'12',	'11',	'04',	'01'	),
+        (	'50',	'42',	'39',	'38',	'37',	'36',	'35',	'33',	'32',	'28',	'26',	'20',	'19',	'15',	'11',	'10',	'08',	'07',	'02',	'01'	),
+        (	'50',	'48',	'47',	'44',	'39',	'37',	'36',	'34',	'33',	'31',	'27',	'25',	'24',	'23',	'18',	'17',	'10',	'07',	'06',	'03'	),
+        (	'48',	'46',	'43',	'41',	'39',	'33',	'31',	'29',	'28',	'25',	'23',	'18',	'17',	'14',	'13',	'07',	'05',	'03',	'02',	'01'	),
+        (	'46',	'45',	'44',	'42',	'37',	'30',	'26',	'25',	'23',	'22',	'21',	'19',	'18',	'17',	'16',	'15',	'07',	'05',	'04',	'01'	),
+        (	'49',	'46',	'43',	'41',	'38',	'36',	'32',	'28',	'26',	'25',	'21',	'20',	'19',	'14',	'12',	'10',	'08',	'07',	'05',	'02'	)
+    )
 
-    sacgen = sac.simulate('classify')
-    stats = []
-    for agent in sac:
-        for sim in agent.simlist:
-            stats.append(sim.statistics)  # 0번째 sim의 statistics
+    for case in case40per:
+        sa = simagent.SimAgent(sac.fold)
+        sa.addsim(simagent.clffactory('cpon'))
+        lc, lt, ec, et = controller.folding_160411_half(data, target, case)
+        sac.fit(sa, lc=lc, lt=lt, ec=ec, et=et)
 
-    scfdict = {'acc': [], 'f_a': [], 'p_a': [], 'r_a': []}
-    for clf in stats:
-        for key in clf:
-            scfdict[key] = clf[key]['average']
+    sacgen = sac.simulate('identify')
+    stats = [x[0].statistics for x in sacgen]
+    # for res in sacgen:
+    #     agent = res
+    #     stats.append(res[0].statistics)  # 0번째 sim의 statistics
 
-    print('\t'.join(k for k in scfdict))
-    print('\t'.join([str(scfdict[k]) for k in scfdict]))
+    scfdict = {'dsa': [], 'dsp': [], 'dsr': [], 'dsf': [], 'sqa': [], 'sqp': [], 'sqr': [], 'sqf': []}
+    for fold in stats:
+        for key in fold:
+            scfdict[key].append([x for x in fold[key]['fold']])
+
+    for key in scfdict:
+        fclist = scfdict[key]
+        cflist = [np.average(x) for x in zip(*fclist)]
+        scfdict[key] = cflist
+
+    keyset = [k for k in scfdict]
+    keyset.sort()
+    print('25개\t', '\t'.join(keyset))
+    for i in range(5):
+        print((i + 1) * 10, '\t', '\t'.join([str(scfdict[k][i]) for k in keyset]))
+
 # agent = simagent.SimAgent(fold=10)  # default : 2
     # cpon = simagent.clffactory('cpon')
     # agent.addsim(cpon)

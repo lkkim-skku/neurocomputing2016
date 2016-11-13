@@ -77,25 +77,47 @@ if __name__ == "__main__":
 
     sac = SimulationCaseController(fold=10)
 
-    sa = simagent.SimAgent(sac.fold)
-    sa.addsim(simagent.clffactory('cpon'))
-    sa.addsim(simagent.clffactory('svm'))
-    sa.addsim(simagent.clffactory('knn'))
-    sac.fit(sa, data=data, target=target)
+    case10per = (
+        ('46',	'27',	'20',	'11',	'17'),
+        ('17',	'06',	'13',	'38',	'09'),
+        ('10',	'46',	'02',	'37',	'01'),
+        ('09',	'30',	'17',	'49',	'07'),
+        ('46',	'21',	'20',	'14',	'02'),
+        ('44',	'25',	'22',	'18',	'16'),
+        ('31',	'27',	'24',	'17',	'10'),
+        ('46',	'33',	'23',	'14',	'03'),
+        ('39',	'26',	'11',	'08',	'07'),
+        ('37',	'34',	'22',	'11',	'01')
+    )
 
-    sacgen = sac.simulate('classify')
-    stats = []
-    for agent in sac:
-        for sim in agent.simlist:
-            stats.append(sim.statistics)  # 0번째 sim의 statistics
+    for case in case10per:
+        sa = simagent.SimAgent(sac.fold)
+        sa.addsim(simagent.clffactory('cpon'))
+        lc, lt, ec, et = controller.folding_160411_half(data, target, case)
+        sac.fit(sa, lc=lc, lt=lt, ec=ec, et=et)
 
-    scfdict = {'acc': [], 'f_a': [], 'p_a': [], 'r_a': []}
-    for clf in stats:
-        for key in clf:
-            scfdict[key] = clf[key]['average']
+    sacgen = sac.simulate('identify')
+    stats = [x[0].statistics for x in sacgen]
+    # for res in sacgen:
+    #     agent = res
+    #     stats.append(res[0].statistics)  # 0번째 sim의 statistics
 
-    print('\t'.join(k for k in scfdict))
-    print('\t'.join([str(scfdict[k]) for k in scfdict]))
+    scfdict = {'dsa': [], 'dsp': [], 'dsr': [], 'dsf': [], 'sqa': [], 'sqp': [], 'sqr': [], 'sqf': []}
+    for fold in stats:
+        for key in fold:
+            scfdict[key].append([x for x in fold[key]['fold']])
+
+    for key in scfdict:
+        fclist = scfdict[key]
+        cflist = [np.average(x) for x in zip(*fclist)]
+        scfdict[key] = cflist
+
+    keyset = [k for k in scfdict]
+    keyset.sort()
+    print('25개\t', '\t'.join(keyset))
+    for i in range(5):
+        print((i + 1) * 10, '\t', '\t'.join([str(scfdict[k][i]) for k in keyset]))
+
 # agent = simagent.SimAgent(fold=10)  # default : 2
     # cpon = simagent.clffactory('cpon')
     # agent.addsim(cpon)

@@ -1,0 +1,23 @@
+{
+    "CPON" : {
+        "alpha": 1,
+        "kernel": "gaussian"
+    },
+    "Linear SVM": {
+        "kernel": "linear",
+        "gamma": 1,
+        "decision_functino_shape": "ovr"
+    },
+    "RBF SVM": {
+        "kernel": "rbf",
+        "gamma": 1,
+        "decision_functino_shape": "ovr"
+    },
+    "kNN": {
+        "n_neighbors": 1
+        
+    },
+    "Random Forest": {
+        
+    }
+ }
