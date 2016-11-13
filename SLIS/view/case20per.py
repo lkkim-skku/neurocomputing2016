@@ -73,7 +73,9 @@ class SimulationCaseController:
 
 if __name__ == "__main__":
     # data, target = projio.load('D:/workshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,dTOA]') # 실제 논문에서 사용한 dataset (tb.1)
-    data, target = projio.load('D:/workshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
+    # data, target = projio.load('D:/workshop/NIPLAB/leesuk.kim/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
+    data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,dTOA]') # 실제 논문에서 사용한 dataset (tb.2, tb.3)
+    # data, target = projio.load('D:/Workshop/NIP lab/niplab/14.11-16.04_RadarSignal/Data/input/raw/50[FREQ,PW,TOA]') # 실제 논문에서 사용한 dataset (tb.1)
 
     sac = SimulationCaseController(fold=10)
 
@@ -114,7 +116,7 @@ if __name__ == "__main__":
 
     keyset = [k for k in scfdict]
     keyset.sort()
-    print('25개\t', '\t'.join(keyset))
+    print('10개\t', '\t'.join(keyset))
     for i in range(5):
         print((i + 1) * 10, '\t', '\t'.join([str(scfdict[k][i]) for k in keyset]))
 

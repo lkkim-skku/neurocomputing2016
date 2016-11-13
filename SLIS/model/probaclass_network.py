@@ -213,8 +213,8 @@ class CPON:
         _pred = []
 
         for cpnet in self.classoutputs_network:
-            _pred.append(mymax(cpnet, key=lambda x: cpnet[x]))
-            #_pred.append(mymax(cpnet, key=lambda x: cpnet[x], underbound=0.05, default='unknown'))
+            # _pred.append(mymax(cpnet, key=lambda x: cpnet[x]))
+            _pred.append(mymax(cpnet, key=lambda x: cpnet[x], underbound=0.05, default='unknown'))
 
         # TODO 꼭 수정해야 합니다. 이거 나을텍 전용입니다.
         return _pred
